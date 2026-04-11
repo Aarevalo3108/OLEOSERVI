@@ -1,4 +1,4 @@
-import repuesto from '../assets/repuesto.jpg';
+import repuesto from '../assets/repuesto.webp';
 import { ChevronRight } from 'lucide-react';
 
 const Section = () => {
