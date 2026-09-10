@@ -1,0 +1,18 @@
+# Configuración de Dependabot para OLEOSERVI, C.A.
+# Mantiene actualizadas las dependencias npm y las actions de GitHub.
+# Frecuencia: semanal para ambos ecosistemas.
+
+version: 2
+
+updates:
+  # Dependencias de npm (package.json / package-lock.json) en la raíz del repo
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+
+  # GitHub Actions (workflows en .github/workflows/) en la raíz del repo
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

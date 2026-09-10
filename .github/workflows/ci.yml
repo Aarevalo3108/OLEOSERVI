@@ -1,0 +1,44 @@
+# Workflow de Integración Continua (CI) para la landing page de OLEOSERVI, C.A.
+# Se ejecuta en cada push y pull_request hacia la rama "main".
+# Pasos: checkout → Node 22 → instalar deps → lint → build → auditoría de seguridad (solo deps de producción).
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build y verificación
+    runs-on: ubuntu-latest
+
+    steps:
+      # Descargar el repositorio
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # Configurar Node.js 22 con caché de npm
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Instalar dependencias de forma reproducible (usa package-lock.json)
+      - name: Instalar dependencias
+        run: npm ci
+
+      # Ejecutar el linter (eslint)
+      - name: Lint
+        run: npm run lint
+
+      # Compilar la aplicación (vite build)
+      - name: Build
+        run: npm run build
+
+      # Auditoría de seguridad: solo dependencias de producción, umbral alto
+      - name: Auditoría de seguridad (producción)
+        run: npm audit --omit=dev --audit-level=high
