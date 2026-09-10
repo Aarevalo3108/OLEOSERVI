@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Compensar el header sticky (h-24 = 6rem) al navegar por anclas */
+@layer base {
+  [id] {
+    scroll-margin-top: 7rem;
+  }
+}
+
+/* Mejor equilibrio tipográfico en títulos */
+@layer base {
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+}
+
+/* Respetar la preferencia del usuario de reducir animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
